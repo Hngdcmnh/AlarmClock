@@ -9,10 +9,11 @@ import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.alarmclock.AlarmReceiver
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "alarm_table")
-class Alarm {
+class Alarm : Serializable {
 
     @PrimaryKey(autoGenerate = true)
     var id=0

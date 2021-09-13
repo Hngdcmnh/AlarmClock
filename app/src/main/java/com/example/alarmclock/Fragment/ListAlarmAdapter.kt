@@ -13,7 +13,7 @@ import com.example.alarmclock.Data.Alarm
 import com.example.alarmclock.Data.AlarmViewModel
 import com.example.alarmclock.R
 
-class ListAlarmAdapter(var listAlarm: ArrayList<Alarm>):RecyclerView.Adapter<ListAlarmAdapter.ViewHolder>() {
+class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmViewModel):RecyclerView.Adapter<ListAlarmAdapter.ViewHolder>() {
     lateinit var v:View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,26 +24,19 @@ class ListAlarmAdapter(var listAlarm: ArrayList<Alarm>):RecyclerView.Adapter<Lis
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(listAlarm[position])
         var btDdel = v.findViewById<Button>(R.id.bt_delete)
-//        var swRepeat = v.findViewById<Switch>(R.id.sw_repeat)
 
         btDdel.setOnClickListener {
-            listAlarm[position].cancelAlarm(v.context)
-            listAlarm.remove(listAlarm[position])
-//            AlarmViewModel.listAlarmLiveData.value = listAlarm
+            alarmViewModel.deleteAlarm(listAlarm[position])
         }
-
         v.setOnLongClickListener{
             v.findViewById<CheckBox>(R.id.cb_del).visibility = View.VISIBLE
             return@setOnLongClickListener true
         }
         v.setOnClickListener {
             var bundle:Bundle = Bundle()
-            bundle.putInt("position",position)
+            bundle.putSerializable("now alarm",listAlarm[position])
             v.findNavController().navigate(R.id.action_listAlarmFragment_to_addAlarmFragment,bundle)
         }
-
-
-
     }
 
     override fun getItemCount(): Int {
@@ -61,8 +54,6 @@ class ListAlarmAdapter(var listAlarm: ArrayList<Alarm>):RecyclerView.Adapter<Lis
             hour.text = alarm.hour.toString()
             minute.text = alarm.minute.toString()
             title.text = alarm.title
-//            if(alarm.repeat) swRepeat.textOn
-//            else swRepeat.textOff
         }
     }
 }

@@ -51,7 +51,6 @@ class AddAlarmFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         alarmViewModel = ViewModelProvider(this).get(AlarmViewModel::class.java)
-        
         btAdd = view.findViewById<Button>(R.id.bt_add)
         timePicker = view.findViewById<TimePicker>(R.id.timePicker)
         edtTitle = view.findViewById(R.id.edt_title)
@@ -66,9 +65,11 @@ class AddAlarmFragment : Fragment() {
         repeatOptions = view.findViewById<LinearLayout>(R.id.repeatOptions)
 
         var bundle = arguments
-        var position =bundle?.getInt("position",-1)
-        if (position != null) {
-            setNowAlarm(position)
+//        var position =bundle?.getInt("position",-1)
+
+        var nowAlarm = bundle?.getSerializable("now alarm")
+        if (nowAlarm != null) {
+            setNowAlarm(nowAlarm as Alarm)
         }
 
         checkRepeat.setOnClickListener {
@@ -100,10 +101,12 @@ class AddAlarmFragment : Fragment() {
         }
     }
 
+
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun setNowAlarm(position: Int) {
+    private fun setNowAlarm(nowAlarm :Alarm) {
 //        var nowAlarm = AlarmViewModel.listAlarm[position]
-        var nowAlarm = alarmViewModel.readAllAlarm.value?.get(position)
+//        var nowAlarm = alarmViewModel.readAllAlarm.value?.get(position)
+//        Log.e("List", alarmViewModel.readAllAlarm.value.toString())
         if (nowAlarm != null) {
             timePicker.hour = nowAlarm.hour
         }
@@ -131,6 +134,7 @@ class AddAlarmFragment : Fragment() {
         }
 
         if (nowAlarm != null) {
+            Toast.makeText(this.requireContext(),"Remove",Toast.LENGTH_LONG)
             alarmViewModel.deleteAlarm(nowAlarm)
         }
 //        AlarmViewModel.listAlarm.removeAt(position)

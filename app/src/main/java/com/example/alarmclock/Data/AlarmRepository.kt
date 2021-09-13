@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class AlarmRepository(private var alarmDao: AlarmDao) {
-    val readAllalarm: MutableLiveData<ArrayList<Alarm>> = alarmDao.readAllAlarm()
+    val readAllalarm: LiveData<List<Alarm>> = alarmDao.readAllAlarm()
 
     suspend fun addAlarm(alarm: Alarm) {
         alarmDao.insertAlarm(alarm)
@@ -20,6 +20,11 @@ class AlarmRepository(private var alarmDao: AlarmDao) {
 
     suspend fun deleteAllAlarm() {
         alarmDao.readAllAlarm()
+    }
+
+    suspend fun getAlarm(id:Int) : Alarm
+    {
+        return alarmDao.getAlarm(id)
     }
 
 

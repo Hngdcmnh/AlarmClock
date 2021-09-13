@@ -3,9 +3,10 @@ package com.example.alarmclock.Data
 import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class AlarmViewModel(application: Application): ViewModel() {
+class AlarmViewModel(application: Application): AndroidViewModel(application) {
 //    var listAlarmLiveData: MutableLiveData<ArrayList<Alarm>> = MutableLiveData()
 //    var listAlarm: ArrayList<Alarm> = ArrayList()
 //
@@ -18,9 +19,9 @@ class AlarmViewModel(application: Application): ViewModel() {
 //        listAlarmLiveData.value = listAlarm
 //    }
 
-    
+
     var alarmRepository:AlarmRepository
-    var readAllAlarm :MutableLiveData<ArrayList<Alarm>> = MutableLiveData()
+    var readAllAlarm : LiveData<List<Alarm>> = MutableLiveData()
 
     init {
         val alarmDao = AlarmDatabase.getDatabase(application).alarmDao()
@@ -55,5 +56,13 @@ class AlarmViewModel(application: Application): ViewModel() {
             alarmRepository.deleteAllAlarm()
         }
     }
+
+    suspend fun getAlarm(id:Int) :Alarm
+    {
+        return viewModelScope.async(Dispatchers.IO){
+            alarmRepository.getAlarm(id)
+        }.await()
+    }
+
 
 }

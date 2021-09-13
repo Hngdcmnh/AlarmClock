@@ -35,12 +35,13 @@ class ListAlarmFragment : Fragment(),DeleteMode {
         super.onViewCreated(view, savedInstanceState)
 
         alarmViewModel = ViewModelProvider(this).get(AlarmViewModel::class.java)
+
         var listAlarmRecyclerView: RecyclerView = view.findViewById(R.id.rcv_listAlarm)
 
         listAlarmRecyclerView.layoutManager = LinearLayoutManager(this.context)
         
 //        AlarmViewModel.listAlarmLiveData.observe(viewLifecycleOwner, Observer { listAlarm: ArrayList<Alarm> -> listAlarmRecyclerView.adapter = ListAlarmAdapter(AlarmViewModel.listAlarm) })
-        alarmViewModel.readAllAlarm.observe(viewLifecycleOwner, Observer { it ->listAlarmRecyclerView.adapter = ListAlarmAdapter(it) })
+        alarmViewModel.readAllAlarm.observe(viewLifecycleOwner, Observer { it ->listAlarmRecyclerView.adapter = ListAlarmAdapter(it,alarmViewModel) })
 
 
         btAdd = view.findViewById(R.id.bt_addAlarm)

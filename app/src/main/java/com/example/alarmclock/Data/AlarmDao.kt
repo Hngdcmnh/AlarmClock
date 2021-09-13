@@ -13,13 +13,16 @@ public interface AlarmDao {
     suspend fun deletaAllAlarm()
 
     @Query("SELECT * FROM alarm_table ORDER BY id ASC")
-    fun readAllAlarm(): MutableLiveData<ArrayList<Alarm>>
+    fun readAllAlarm(): LiveData<List<Alarm>>
 
     @Update
     suspend fun updateAlarm(alarm: Alarm)
 
     @Delete
     suspend fun deleteAlarm(alarm: Alarm)
+
+    @Query("SELECT * FROM alarm_table WHERE id=:id ")
+    fun getAlarm(id: Int): Alarm
 
 
 }
