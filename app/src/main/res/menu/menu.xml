@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listAlarmFragment"
+        android:title="alarm"
+        android:icon="@drawable/icons8_alarm_clock_48px"
+        ></item>
+    <item
+        android:id="@+id/stopWatchFragment"
+        android:title="stop watch"
+        android:icon="@drawable/icons8_wall_clock_48px"
+        ></item>
+    <item
+        android:id="@+id/countdownFragment"
+        android:title="countdown"
+        android:icon="@drawable/icons8_sand_clock_48px"
+        ></item>
+</menu>

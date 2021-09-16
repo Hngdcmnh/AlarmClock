@@ -42,7 +42,6 @@ class AddAlarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v =  inflater.inflate(R.layout.fragment_add_alarm, container, false)
-
         return v
     }
 
@@ -100,7 +99,6 @@ class AddAlarmFragment : Fragment() {
             Log.e("Key",checkMon.isChecked.toString())
         }
     }
-
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setNowAlarm(nowAlarm :Alarm) {

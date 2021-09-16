@@ -43,15 +43,12 @@ class ListAlarmFragment : Fragment(),DeleteMode {
 //        AlarmViewModel.listAlarmLiveData.observe(viewLifecycleOwner, Observer { listAlarm: ArrayList<Alarm> -> listAlarmRecyclerView.adapter = ListAlarmAdapter(AlarmViewModel.listAlarm) })
         alarmViewModel.readAllAlarm.observe(viewLifecycleOwner, Observer { it ->listAlarmRecyclerView.adapter = ListAlarmAdapter(it,alarmViewModel) })
 
-
         btAdd = view.findViewById(R.id.bt_addAlarm)
 
         btAdd.setOnClickListener {
             findNavController().navigate(R.id.action_listAlarmFragment_to_addAlarmFragment)
         }
-
         delLinearLayout = view.findViewById(R.id.ll_deleteMode)
-
     }
 
     override fun setDeleteMode() {
