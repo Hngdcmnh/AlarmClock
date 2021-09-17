@@ -1,26 +1,17 @@
-package com.example.alarmclock.Data
+package com.example.alarmclock.ViewModel
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.alarmclock.Data.Alarm
+import com.example.alarmclock.Data.AlarmDatabase
+import com.example.alarmclock.Data.AlarmRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AlarmViewModel(application: Application): AndroidViewModel(application) {
-//    var listAlarmLiveData: MutableLiveData<ArrayList<Alarm>> = MutableLiveData()
-//    var listAlarm: ArrayList<Alarm> = ArrayList()
-//
-//    init {
-//        listAlarmLiveData.value = listAlarm
-//    }
 
-//    fun addAlarm(alarm: Alarm) {
-//        listAlarm.add(alarm)
-//        listAlarmLiveData.value = listAlarm
-//    }
-
-
-    var alarmRepository:AlarmRepository
+    var alarmRepository: AlarmRepository
     var readAllAlarm : LiveData<List<Alarm>> = MutableLiveData()
 
     init {
@@ -57,7 +48,7 @@ class AlarmViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    suspend fun getAlarm(id:Int) :Alarm
+    suspend fun getAlarm(id:Int) : Alarm
     {
         return viewModelScope.async(Dispatchers.IO){
             alarmRepository.getAlarm(id)

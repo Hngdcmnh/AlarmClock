@@ -8,7 +8,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.alarmclock.AlarmReceiver
+import com.example.alarmclock.Receiver.AlarmReceiver
 import java.io.Serializable
 import java.util.*
 

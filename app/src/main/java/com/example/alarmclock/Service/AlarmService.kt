@@ -41,7 +41,7 @@ class AlarmService:Service() {
             val notifyPendingIntent = PendingIntent.getActivity(this,0,notifyIntent,PendingIntent.FLAG_UPDATE_CURRENT)
             val notification: Notification = Notification.Builder(this,"CHANNEL 1")
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-//                    .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
+                    .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
                     .setContentIntent(notifyPendingIntent)
                     .setAutoCancel(true)
                     .setContentTitle("Wonderful music")

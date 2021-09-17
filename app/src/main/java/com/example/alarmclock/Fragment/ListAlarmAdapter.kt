@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alarmclock.Data.Alarm
-import com.example.alarmclock.Data.AlarmViewModel
+import com.example.alarmclock.ViewModel.AlarmViewModel
 import com.example.alarmclock.R
 
 class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmViewModel):RecyclerView.Adapter<ListAlarmAdapter.ViewHolder>() {

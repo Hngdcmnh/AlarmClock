@@ -12,9 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.alarmclock.Data.Alarm
 import com.example.alarmclock.DeleteMode
-import com.example.alarmclock.Data.AlarmViewModel
+import com.example.alarmclock.ViewModel.AlarmViewModel
 import com.example.alarmclock.R
 
 class ListAlarmFragment : Fragment(),DeleteMode {
@@ -22,7 +21,7 @@ class ListAlarmFragment : Fragment(),DeleteMode {
     lateinit var btAdd:Button
     lateinit var v:View
     lateinit var delLinearLayout: LinearLayout
-    lateinit var alarmViewModel:AlarmViewModel
+    lateinit var alarmViewModel: AlarmViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -12,14 +12,14 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.alarmclock.Data.Alarm
-import com.example.alarmclock.Data.AlarmViewModel
+import com.example.alarmclock.ViewModel.AlarmViewModel
 import com.example.alarmclock.R
 import java.util.*
 
 
 class AddAlarmFragment : Fragment() {
 
-    lateinit var alarmViewModel:AlarmViewModel
+    lateinit var alarmViewModel: AlarmViewModel
 
     lateinit var v :View
     lateinit var timePicker:TimePicker
