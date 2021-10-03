@@ -64,7 +64,6 @@ class AddAlarmFragment : Fragment() {
         repeatOptions = view.findViewById<LinearLayout>(R.id.repeatOptions)
 
         var bundle = arguments
-//        var position =bundle?.getInt("position",-1)
 
         var nowAlarm = bundle?.getSerializable("now alarm")
         if (nowAlarm != null) {
@@ -96,15 +95,12 @@ class AddAlarmFragment : Fragment() {
 
         btAdd.setOnClickListener {
             addNewAlarm()
-            Log.e("Key",checkMon.isChecked.toString())
+//            Log.e("Key",checkMon.isChecked.toString())
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setNowAlarm(nowAlarm :Alarm) {
-//        var nowAlarm = AlarmViewModel.listAlarm[position]
-//        var nowAlarm = alarmViewModel.readAllAlarm.value?.get(position)
-//        Log.e("List", alarmViewModel.readAllAlarm.value.toString())
         if (nowAlarm != null) {
             timePicker.hour = nowAlarm.hour
         }
@@ -135,18 +131,17 @@ class AddAlarmFragment : Fragment() {
             Toast.makeText(this.requireContext(),"Remove",Toast.LENGTH_LONG)
             alarmViewModel.deleteAlarm(nowAlarm)
         }
-//        AlarmViewModel.listAlarm.removeAt(position)
-//        AlarmViewModel.listAlarmLiveData.value = AlarmViewModel.listAlarm
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun addNewAlarm() {
-        Log.e("Key",timePicker.hour.toString())
+//        Log.e("Key",timePicker.hour.toString())
         var newAlarm = Alarm(timePicker.hour,timePicker.minute,"",edtTitle.text.toString(),checkRepeat.isChecked,checkMon.isChecked,checkTue.isChecked,checkWed.isChecked,checkThu.isChecked,checkFri.isChecked,checkSat.isChecked,checkSun.isChecked)
-//        AlarmViewModel.listAlarm.add(newAlarm)
-//        AlarmViewModel.listAlarmLiveData.value = AlarmViewModel.listAlarm
-        
+
         alarmViewModel.addAlarm(newAlarm)
+//        Log.e("NewAlarm",newAlarm.id.toString())
+
+//        Log.e(this.javaClass.simpleName,this.context.toString())
         this.context?.let { newAlarm.scheduleAlarm(it) }
         findNavController().navigate(R.id.action_addAlarmFragment_to_listAlarmFragment)
     }
