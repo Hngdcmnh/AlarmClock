@@ -110,7 +110,7 @@ class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmView
         v.setOnClickListener {
             if(!enable) // update alarm
             {
-                var bundle:Bundle = Bundle()
+                var bundle = Bundle()
                 bundle.putSerializable("now alarm",listAlarm[position])
                 v.findNavController().navigate(R.id.action_listAlarmFragment_to_addAlarmFragment,bundle)
             }
