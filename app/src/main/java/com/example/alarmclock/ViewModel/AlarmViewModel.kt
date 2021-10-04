@@ -55,5 +55,11 @@ class AlarmViewModel(application: Application): AndroidViewModel(application) {
         }.await()
     }
 
+    suspend fun getId():Int
+    {
+        return viewModelScope.async(Dispatchers.IO){
+            alarmRepository.getId()
+        }.await()
+    }
 
 }

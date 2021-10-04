@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.CountDownFragment">
-
+    tools:context=".Fragment.CountDown.CountDownFragment"
+    >
 
     <Button
         android:id="@+id/bt_start"
@@ -14,10 +14,12 @@
         android:text="start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.755"
+        app:layout_constraintHorizontal_bias="0.758"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655"></Button>
+        app:layout_constraintVertical_bias="0.853"
+
+        ></Button>
 
     <Button
         android:id="@+id/bt_stop"
@@ -26,48 +28,70 @@
         android:text="stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655"></Button>
+        app:layout_constraintVertical_bias="0.853"
 
-    <NumberPicker
-        android:id="@+id/np_hour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:solidColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        ></Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"></NumberPicker>
+        android:background="@drawable/item_gradient"
+        >
+        <NumberPicker
+            android:id="@+id/np_hour"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:solidColor="#FFFFFF"
+
+            android:theme="@style/NumberPickerTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.247"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.23"></NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/np_minute"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:solidColor="#FFFFFF"
+            android:theme="@style/NumberPickerTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.23"></NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/np_second"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:solidColor="@color/white"
+            android:theme="@style/NumberPickerTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.772"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.23"></NumberPicker>
 
 
-
-    <NumberPicker
-        android:id="@+id/np_minute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:solidColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"></NumberPicker>
-
-    <NumberPicker
-        android:id="@+id/np_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:solidColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.772"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"></NumberPicker>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

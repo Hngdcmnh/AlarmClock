@@ -27,6 +27,10 @@ class AlarmRepository(private var alarmDao: AlarmDao) {
         return alarmDao.getAlarm(id)
     }
 
+    suspend fun getId():Int
+    {
+        return alarmDao.getId()
+    }
 
 
 

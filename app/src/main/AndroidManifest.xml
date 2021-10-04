@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.alarmclock">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -22,8 +23,10 @@
         </activity>
 
         <receiver android:name=".Receiver.AlarmReceiver" />
+        <receiver android:name=".Receiver.CountDownReceiver"/>
 
         <service android:name=".Service.AlarmService" />
+        <service android:name=".Service.CountDownService"/>
     </application>
 
 </manifest>

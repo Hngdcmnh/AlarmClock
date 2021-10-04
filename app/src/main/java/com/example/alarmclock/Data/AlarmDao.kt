@@ -24,5 +24,7 @@ public interface AlarmDao {
     @Query("SELECT * FROM alarm_table WHERE id=:id ")
     fun getAlarm(id: Int): Alarm
 
+    @Query("SELECT  MAX(id) FROM alarm_table")
+    fun getId():Int
 
 }

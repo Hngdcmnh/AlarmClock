@@ -1,15 +1,24 @@
 package com.example.alarmclock.Activity
 
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import androidx.core.app.NotificationCompat
 import com.example.alarmclock.Receiver.AlarmReceiver
 import com.example.alarmclock.Data.Alarm
 import com.example.alarmclock.R
+import com.example.alarmclock.Service.AlarmService
 import java.util.*
 
 class RingActivity : AppCompatActivity() {
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ring)
@@ -19,7 +28,7 @@ class RingActivity : AppCompatActivity() {
         var title:String = intent.extras?.getString("Title","").toString()
 
         btOff.setOnClickListener {
-            var intentService: Intent = Intent(applicationContext, AlarmReceiver::class.java)
+            var intentService = Intent(applicationContext, AlarmReceiver::class.java)
             intentService.putExtra("handleAlarm","off")
             applicationContext.sendBroadcast(intentService)
             finish()

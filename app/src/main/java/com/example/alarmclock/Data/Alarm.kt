@@ -29,9 +29,11 @@ class Alarm : Serializable {
     var Fri:Boolean = false
     var Sat:Boolean = false
     var Sun:Boolean = false
+    var on:Boolean= true
 
     constructor(hour:Int,minute:Int,music:String,title:String,repeat:Boolean,Mon : Boolean,Tue : Boolean,Wed : Boolean,Thu : Boolean,Fri : Boolean,Sat : Boolean,Sun : Boolean)
     {
+        this.on = on
         this.hour = hour
         this.minute = minute
         this.title = title
@@ -43,6 +45,10 @@ class Alarm : Serializable {
         this.Fri = Fri
         this.Sat = Sat
         this.Sun = Sun
+        if(repeat == true && !Mon && !Tue && !Wed && !Thu && !Fri && !Sat && !Sun )
+        {
+            this.repeat =false
+        }
     }
 
     fun scheduleAlarm(context: Context)
@@ -50,9 +56,9 @@ class Alarm : Serializable {
         var calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY,this.hour)
         calendar.set(Calendar.MINUTE,this.minute)
-        Log.e("Key","schedule")
-        Log.e("Key1",this.hour.toString())
-        Log.e("Key2",this.minute.toString())
+//        Log.e("Key","schedule")
+//        Log.e("Key1",this.hour.toString())
+//        Log.e("Key2",this.minute.toString())
         var intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra("handleAlarm","on")
         intent.putExtra("Repeat", this.repeat)
@@ -64,8 +70,15 @@ class Alarm : Serializable {
         intent.putExtra("Sat",this.Sat)
         intent.putExtra("Sun",this.Sun)
         intent.putExtra("Title",this.title)
-        var pendingIntent = PendingIntent.getBroadcast(context,this.id,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        intent.putExtra("hour",this.hour)
+        intent.putExtra("minute",this.minute)
+        var pendingIntent = PendingIntent.getBroadcast(context,this.minute,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         var alarmManager :AlarmManager = context.applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
+        Log.e(this.javaClass.simpleName,this.hour.toString()+" "+this.minute.toString())
+        if(calendar.timeInMillis<=System.currentTimeMillis())
+        {
+            calendar.set(Calendar.DAY_OF_MONTH,calendar.get(Calendar.DAY_OF_MONTH)+1)
+        }
         if(this.repeat == true)
         {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,AlarmManager.INTERVAL_DAY,pendingIntent)
@@ -74,13 +87,12 @@ class Alarm : Serializable {
         {
             alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent)
         }
-
     }
 
     fun cancelAlarm(context: Context)
     {
         var intent = Intent(context, AlarmReceiver::class.java)
-        var pendingIntent = PendingIntent.getBroadcast(context,this.id,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        var pendingIntent = PendingIntent.getBroadcast(context,this.minute,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         var alarmManager :AlarmManager = context.applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)
     }

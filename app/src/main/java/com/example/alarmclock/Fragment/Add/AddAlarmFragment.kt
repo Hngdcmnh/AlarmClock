@@ -1,4 +1,4 @@
-package com.example.alarmclock.Fragment
+package com.example.alarmclock.Fragment.Add
 
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.alarmclock.Data.Alarm
 import com.example.alarmclock.ViewModel.AlarmViewModel
 import com.example.alarmclock.R
+import java.io.Serializable
 import java.util.*
 
 
@@ -94,10 +95,18 @@ class AddAlarmFragment : Fragment() {
         }
 
         btAdd.setOnClickListener {
-            addNewAlarm()
-//            Log.e("Key",checkMon.isChecked.toString())
+            if (nowAlarm != null) {
+                updateNowAlarm(nowAlarm as Alarm)
+            }
+            else
+            {
+                addNewAlarm()
+            }
+
         }
     }
+
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setNowAlarm(nowAlarm :Alarm) {
@@ -123,26 +132,35 @@ class AddAlarmFragment : Fragment() {
             else checkRepeat.isChecked = false
         }
 
-        if (nowAlarm != null) {
-            nowAlarm.cancelAlarm(v.context)
-        }
+    }
 
-        if (nowAlarm != null) {
-            Toast.makeText(this.requireContext(),"Remove",Toast.LENGTH_LONG)
-            alarmViewModel.deleteAlarm(nowAlarm)
-        }
+    private fun addNewAlarm() {
+        var newAlarm = Alarm(timePicker.hour,timePicker.minute,"",edtTitle.text.toString(),checkRepeat.isChecked,checkMon.isChecked,checkTue.isChecked,checkWed.isChecked,checkThu.isChecked,checkFri.isChecked,checkSat.isChecked,checkSun.isChecked)
+        alarmViewModel.addAlarm(newAlarm)
+        Log.e(this.javaClass.simpleName,newAlarm.hour.toString()+" "+newAlarm.minute.toString())
+        this.context?.let { newAlarm.scheduleAlarm(it) }
+        findNavController().navigate(R.id.action_addAlarmFragment_to_listAlarmFragment)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun addNewAlarm() {
+    private fun updateNowAlarm(nowAlarm: Alarm) {
 //        Log.e("Key",timePicker.hour.toString())
-        var newAlarm = Alarm(timePicker.hour,timePicker.minute,"",edtTitle.text.toString(),checkRepeat.isChecked,checkMon.isChecked,checkTue.isChecked,checkWed.isChecked,checkThu.isChecked,checkFri.isChecked,checkSat.isChecked,checkSun.isChecked)
+        this.context?.let { nowAlarm.cancelAlarm(it) }
+        nowAlarm.hour = timePicker.hour
+        nowAlarm.minute = timePicker.minute
+        nowAlarm.title = edtTitle.text.toString()
+        nowAlarm.repeat = checkRepeat.isChecked
+        nowAlarm.Mon = checkMon.isChecked
+        nowAlarm.Tue = checkTue.isChecked
+        nowAlarm.Wed = checkWed.isChecked
+        nowAlarm.Thu = checkThu.isChecked
+        nowAlarm.Fri = checkFri.isChecked
+        nowAlarm.Sat = checkSat.isChecked
+        nowAlarm.Sun = checkSun.isChecked
 
-        alarmViewModel.addAlarm(newAlarm)
-//        Log.e("NewAlarm",newAlarm.id.toString())
+        alarmViewModel.updateAlarm(nowAlarm)
 
-//        Log.e(this.javaClass.simpleName,this.context.toString())
-        this.context?.let { newAlarm.scheduleAlarm(it) }
+        this.context?.let { nowAlarm.scheduleAlarm(it) }
         findNavController().navigate(R.id.action_addAlarmFragment_to_listAlarmFragment)
     }
 

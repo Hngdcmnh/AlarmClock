@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:weightSum="10"
-    android:orientation="horizontal"
+    android:elevation="5dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:background="@drawable/item_round"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:background="@drawable/item_radius"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        >
 
     <CheckBox
         android:id="@+id/cb_del"
@@ -14,52 +32,77 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         ></CheckBox>
-    <TextView
-        android:id="@+id/tv_hourAlarm"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:textSize="30dp"
-        android:layout_weight="2"></TextView>
 
-    <TextView
-        android:text=":"
-        android:textSize="80dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="0.5"
-    ></TextView>
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:paddingLeft="20dp"
+        >
+        <TextView
+            android:id="@+id/tv_hourAlarm"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <TextView
-        android:textSize="30dp"
-        android:id="@+id/tv_minuteAlarm"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="2"
-        ></TextView>
+        <TextView
+            android:id="@+id/space"
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_vertical"
+            android:text=":"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_hourAlarm"
+            app:layout_constraintRight_toLeftOf="@id/tv_minuteAlarm"></TextView>
+
+        <TextView
+            android:id="@+id/tv_minuteAlarm"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/space"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/tv_repeatStatus"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:alpha="0.7"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3.5"
+        android:layout_weight="3"
+        android:gravity="center"
         ></TextView>
 
-    <Switch
-        android:id="@+id/sw_repeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        ></Switch>
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sw_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="1.1"
+            android:scaleY="1"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_centerInParent = "true"
+            app:layout_constraintTop_toTopOf="parent"
+          >
+        </androidx.appcompat.widget.SwitchCompat>
 
-    <Button
-        android:id="@+id/bt_delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:text="Del"
-        ></Button>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.alarmclock.Fragment.List.ListAlarmAdapter
 import com.example.alarmclock.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -14,9 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigationView = findViewById<BottomNavigationView>(R.id.nav_bottom)
+        navigationView = findViewById(R.id.nav_bottom)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navigationView.setupWithNavController(navHostFragment.navController)
+
+
 
     }
 }

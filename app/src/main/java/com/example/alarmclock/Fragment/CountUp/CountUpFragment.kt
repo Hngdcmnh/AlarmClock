@@ -1,26 +1,20 @@
-package com.example.alarmclock.Fragment
+package com.example.alarmclock.Fragment.CountUp
 
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.example.alarmclock.R
-import com.example.alarmclock.ViewModel.CountDownViewModel
-import java.sql.Time
+//import com.example.alarmclock.ViewModel.CountDownViewModel
+import com.example.alarmclock.ViewModel.CountUpViewModel
 import java.util.*
 
-class CountDownFragment : Fragment() {
+class CountUpFragment : Fragment() {
 
     lateinit var btStart :Button
     lateinit var btStop :Button
@@ -33,7 +27,7 @@ class CountDownFragment : Fragment() {
     var timer:Timer = Timer()
     var time :Int = 0
 
-    lateinit var countDownViewModel: CountDownViewModel
+    lateinit var countUpViewModel: CountUpViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,10 +43,18 @@ class CountDownFragment : Fragment() {
         npSecond = view.findViewById<NumberPicker>(R.id.np_second)
         settingNumPicker()
 
-        countDownViewModel = ViewModelProvider(this).get(CountDownViewModel::class.java)
+        //format 2 digits numpicker
+        val formatter : NumberPicker.Formatter = NumberPicker.Formatter { String.format("%02d",it) }
+        npSecond.setFormatter (formatter)
+        npHour.setFormatter (formatter)
+        npMinute.setFormatter (formatter)
+        settingNumPicker()
 
-        countDownViewModel.liveDataTime.observe(viewLifecycleOwner, androidx.lifecycle.Observer { updateUI(it) })
-        countDownViewModel.liveDataTimeoutCheck.observe(viewLifecycleOwner, androidx.lifecycle.Observer { cancelCountDown(it) })
+
+        countUpViewModel = ViewModelProvider(this).get(CountUpViewModel::class.java)
+
+        countUpViewModel.liveDataTime.observe(viewLifecycleOwner, androidx.lifecycle.Observer { updateUI(it) })
+        countUpViewModel.liveDataTimeoutCheck.observe(viewLifecycleOwner, androidx.lifecycle.Observer { cancelCountUp(it) })
 
         btStart.setOnClickListener {
             if(checkRunning ==false)
@@ -60,31 +62,30 @@ class CountDownFragment : Fragment() {
                 checkRunning=true
                 btStart.text="Pause"
                 time = (npHour.value*3600+ npMinute.value*60+npSecond.value)*1000
-                countDownViewModel.time = time.toLong()
-                countDownViewModel.liveDataTime.value = countDownViewModel.time
-                countDownViewModel.startCountDown()
+                countUpViewModel.time = time.toLong()
+                countUpViewModel.liveDataTime.value = countUpViewModel.time
+                countUpViewModel.startCountUp()
             }
             else if(checkRunning ==true)
             {
                 checkRunning =false
                 btStart.text="Start"
-                countDownViewModel.pauseCountDown()
+                countUpViewModel.pauseCountUp()
             }
 
         }
 
         btStop.setOnClickListener {
-            countDownViewModel.cancelCountDown()
+            countUpViewModel.cancelCountUp()
             checkRunning=false
         }
 
     }
 
-    private fun cancelCountDown(it: Boolean?) {
+    private fun cancelCountUp(it: Boolean?) {
         if(it==true) {
-            countDownViewModel.cancelCountDown()
+            countUpViewModel.cancelCountUp()
             Toast.makeText(this.context, "Done", Toast.LENGTH_SHORT).show()
-
         }
     }
 
@@ -94,7 +95,6 @@ class CountDownFragment : Fragment() {
         npMinute.value = (time - npHour.value*3600)/60
         npSecond.value = (time - npHour.value*3600 - npMinute.value*60)
     }
-
 
     private fun settingNumPicker() {
         npHour.maxValue = 23

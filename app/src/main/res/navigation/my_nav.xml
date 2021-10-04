@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listAlarmFragment"
-        android:name="com.example.alarmclock.Fragment.ListAlarmFragment"
+        android:name="com.example.alarmclock.Fragment.List.ListAlarmFragment"
         android:label="fragment_list_alarm"
         tools:layout="@layout/fragment_list_alarm"
         app:startDestination="@id/action_listAlarmFragment_to_addAlarmFragment">
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/addAlarmFragment"
-        android:name="com.example.alarmclock.Fragment.AddAlarmFragment"
+        android:name="com.example.alarmclock.Fragment.Add.AddAlarmFragment"
         android:label="fragment_add_alarm"
         tools:layout="@layout/fragment_add_alarm" >
         <action
@@ -26,12 +26,12 @@
     </fragment>
     <fragment
         android:id="@+id/countdownFragment"
-        android:name="com.example.alarmclock.Fragment.CountDownFragment"
+        android:name="com.example.alarmclock.Fragment.CountDown.CountDownFragment"
         android:label="fragment_countdown"
         tools:layout="@layout/fragment_countdown" />
     <fragment
         android:id="@+id/stopWatchFragment"
-        android:name="com.example.alarmclock.Fragment.CountUpFragment"
+        android:name="com.example.alarmclock.Fragment.CountUp.CountUpFragment"
         android:label="fragment_stop_watch"
         tools:layout="@layout/fragment_countUp" />
 </navigation>

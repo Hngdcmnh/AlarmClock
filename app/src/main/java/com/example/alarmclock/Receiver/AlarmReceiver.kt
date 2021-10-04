@@ -3,31 +3,41 @@ package com.example.alarmclock.Receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.example.alarmclock.Service.AlarmService
+import com.example.alarmclock.Service.CountDownService
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         var handleAlarm : String? = intent?.extras?.getString("handleAlarm")
         var title = intent?.extras?.getString("Title")
+        var hour = intent?.extras?.getInt("hour")
+        var minute = intent?.extras?.getInt("minute")
 
-//        Log.e("Receiver",handleAlarm.toString())
+        Log.e(this.javaClass.simpleName,handleAlarm.toString()+" "+hour+" "+minute)
         var myIntent = Intent(context, AlarmService::class.java)
         myIntent.putExtra("handleAlarm",handleAlarm)
         myIntent.putExtra("Title",title)
 
-        if(intent?.getBooleanExtra("Repeat",false) == false)
+        if(handleAlarm=="off") // turn off alarm
         {
-            context?.startService(myIntent)
+            context?.stopService(myIntent)
         }
-        else
+        else // turn on alarm
         {
-            if(alarmIsToday(intent))
+            if(intent?.getBooleanExtra("Repeat",false) == false)
             {
-                context?.startService(myIntent)
+                context?.startForegroundService(myIntent)
+            }
+            else
+            {
+                if(alarmIsToday(intent))
+                {
+                    context?.startForegroundService(myIntent)
+                }
             }
         }
-
     }
 
     private fun alarmIsToday(intent: Intent?): Boolean {
