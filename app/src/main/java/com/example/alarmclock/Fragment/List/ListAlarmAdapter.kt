@@ -37,7 +37,6 @@ class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmView
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                 mode.menuInflater.inflate(R.menu.delete, menu)
                 mode.title = "Choose delete alarm"
-
                 return true
             }
 
@@ -60,7 +59,6 @@ class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmView
                             alarmViewModel.deleteAlarm(alarm)
                             alarm.cancelAlarm(v.context)
                         }
-
                         listSelected.clear()
                         p0.finish()
                         return true
@@ -102,6 +100,11 @@ class ListAlarmAdapter(var listAlarm: List<Alarm>, var alarmViewModel: AlarmView
         v.setOnLongClickListener {
             if(!enable) {
                 (v.context as AppCompatActivity).startActionMode(mActionModeCallback,ActionMode.TYPE_PRIMARY)
+                var alarm = listAlarm[holder.adapterPosition]
+                holder.itemView.setBackgroundColor(Color.CYAN)
+                holder.checkBox.visibility =View.VISIBLE
+                holder.checkBox.isChecked=true
+                listSelected.add(alarm)
             }
             Log.e(this.javaClass.simpleName,"longclick")
             return@setOnLongClickListener true

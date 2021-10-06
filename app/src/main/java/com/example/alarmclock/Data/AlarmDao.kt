@@ -12,7 +12,7 @@ public interface AlarmDao {
     @Query("DELETE FROM alarm_table")
     suspend fun deletaAllAlarm()
 
-    @Query("SELECT * FROM alarm_table ORDER BY id ASC")
+    @Query("SELECT * FROM alarm_table ORDER BY hour and minute ASC ")
     fun readAllAlarm(): LiveData<List<Alarm>>
 
     @Update

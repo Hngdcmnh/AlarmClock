@@ -14,17 +14,24 @@ class AlarmReceiver : BroadcastReceiver() {
         var title = intent?.extras?.getString("Title")
         var hour = intent?.extras?.getInt("hour")
         var minute = intent?.extras?.getInt("minute")
+        var id = intent?.extras?.getInt("id")
 
         Log.e(this.javaClass.simpleName,handleAlarm.toString()+" "+hour+" "+minute)
+
+        //intent to service
         var myIntent = Intent(context, AlarmService::class.java)
         myIntent.putExtra("handleAlarm",handleAlarm)
         myIntent.putExtra("Title",title)
+        myIntent.putExtra("id",id)
 
-        if(handleAlarm=="off") // turn off alarm
+
+        // turn off alarm
+        if(handleAlarm=="off")
         {
             context?.stopService(myIntent)
         }
-        else // turn on alarm
+        // turn on alarm
+        else
         {
             if(intent?.getBooleanExtra("Repeat",false) == false)
             {

@@ -15,7 +15,7 @@ import java.util.*
 @Entity(tableName = "alarm_table")
 class Alarm : Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id=0
     var hour:Int =0
     var minute: Int =0
@@ -49,6 +49,8 @@ class Alarm : Serializable {
         {
             this.repeat =false
         }
+        this.id =  Random().nextInt(Integer.MAX_VALUE)
+        Log.e(this.javaClass.simpleName,this.id.toString())
     }
 
     fun scheduleAlarm(context: Context)
@@ -56,10 +58,11 @@ class Alarm : Serializable {
         var calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY,this.hour)
         calendar.set(Calendar.MINUTE,this.minute)
-//        Log.e("Key","schedule")
-//        Log.e("Key1",this.hour.toString())
-//        Log.e("Key2",this.minute.toString())
+        calendar.set(Calendar.SECOND,0)
+
+        //intent to AlarmReceiver
         var intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra("id",this.id)
         intent.putExtra("handleAlarm","on")
         intent.putExtra("Repeat", this.repeat)
         intent.putExtra("Mon",this.Mon)
@@ -72,7 +75,9 @@ class Alarm : Serializable {
         intent.putExtra("Title",this.title)
         intent.putExtra("hour",this.hour)
         intent.putExtra("minute",this.minute)
-        var pendingIntent = PendingIntent.getBroadcast(context,this.minute,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+        var pendingIntent = PendingIntent.getBroadcast(context,this.id,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         var alarmManager :AlarmManager = context.applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
         Log.e(this.javaClass.simpleName,this.hour.toString()+" "+this.minute.toString())
         if(calendar.timeInMillis<=System.currentTimeMillis())
@@ -92,7 +97,7 @@ class Alarm : Serializable {
     fun cancelAlarm(context: Context)
     {
         var intent = Intent(context, AlarmReceiver::class.java)
-        var pendingIntent = PendingIntent.getBroadcast(context,this.minute,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        var pendingIntent = PendingIntent.getBroadcast(context,this.id,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         var alarmManager :AlarmManager = context.applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)
     }

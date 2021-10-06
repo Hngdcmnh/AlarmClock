@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Activity.RingActivity">
 
+
+    <ImageView
+        android:id="@+id/imgAnimation1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_access_alarms_24"
+        ></ImageView>
+
+    <ImageView
+        android:id="@+id/imgAnimation2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_access_alarms_24"
+        ></ImageView>
+
+
     <Button
         android:id="@+id/bt_off"
         android:layout_width="wrap_content"

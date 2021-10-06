@@ -16,7 +16,7 @@ import com.example.alarmclock.Activity.RingActivity
 
 class AlarmService:Service() {
     lateinit var mediaPlayer: MediaPlayer
-    var id:Int =0
+    var idMedia:Int =0
 
     override fun onCreate() {
         super.onCreate()
@@ -31,16 +31,24 @@ class AlarmService:Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mediaPlayer = MediaPlayer.create(this, R.raw.music1)
 
+        //Get intent include handleAlarm (turn on/off media) & id of Alarm
         var handleAlarm:String? = intent?.extras?.getString("handleAlarm")
+        var id: Int? = intent?.extras?.getInt("id",0)
+
+        // Handle media
         if(handleAlarm == "on") {
-            id =1
+            idMedia =1
         }
         else if(handleAlarm=="off"){
-            id=0
+            idMedia=0
         }
-        if(id==1)
+        if(idMedia==1)
         {
+            // Start RingActivity
             val notifyIntent = Intent(this, RingActivity::class.java)
+            notifyIntent.putExtra("id",id)
+
+
             val notifyPendingIntent = PendingIntent.getActivity(this,0,notifyIntent,PendingIntent.FLAG_UPDATE_CURRENT)
             val notification: Notification = Notification.Builder(this,"CHANNEL 1")
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -51,11 +59,12 @@ class AlarmService:Service() {
                     .setContentText("My Awesome Band")
                     .build()
             var notificationManager:NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            Log.e(this.javaClass.simpleName,"media")
             mediaPlayer.start()
             startForeground(1,notification)
-            id=0
+            idMedia=0
         }
-        else if(id==0)
+        else if(idMedia==0)
         {
             mediaPlayer.stop()
             mediaPlayer.reset()
